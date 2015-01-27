@@ -1,0 +1,29 @@
+{
+  "name": "partyStation",
+  "version": "1.0.0",
+  "description": "PartyStation is project to use when you want to controll the music played through your computer through your phone.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanski1024/fmi-js-project"
+  },
+  "keywords": [
+    "music",
+    "player",
+    "party",
+    "station"
+  ],
+  "author": "Ivan Petrov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivanski1024/fmi-js-project/issues"
+  },
+  "homepage": "https://github.com/ivanski1024/fmi-js-project",
+  "dependencies": {
+    "play": "^0.5.0",
+    "socket.io": "^1.3.2"
+  }
+}
