@@ -1,6 +1,6 @@
 {
   "name": "partyStation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "PartyStation is project to use when you want to controll the music played through your computer through your phone.",
   "main": "index.js",
   "scripts": {
