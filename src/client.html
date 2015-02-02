@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Party Station</title>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		// var url = 'http://192.168.0.106:3000/';
+		var url = 'http://127.0.0.1:3000/';
+		var clickHandler = function(action) {
+      $.post(url + 'action', {action: action});
+      console.log('Action:  ' + action);
+    };
+	</script>	
+
+	<button id="prevButton" 
+						onClick="
+						var action = 'prev'; console.log(action); clickHandler(action);">&#9194;</button>
+	<button id="playButton" 
+						onClick="
+						var action = 'play'; console.log(action); clickHandler(action);">&#9658;</button>
+	<button id="pauseButton" 
+						onClick="
+						var action = 'pause'; console.log(action); clickHandler(action);">&#9616;&#9616;</button>
+	<button id="stopButton" 
+						onClick="
+						var action = 'stop'; console.log(action); clickHandler(action);">&#9724;</button>
+	<button id="nextButton" 
+						onClick="
+						var action = 'next'; console.log(action); clickHandler(action);">&#9193;</button>
+
+</body>	
+</html>
