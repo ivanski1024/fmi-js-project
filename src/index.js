@@ -8,18 +8,19 @@ config['fileExtensions'] = ['.mp3', '.wav'];
 config['portNumber'] = 3000;
 
 var browser = require('./browser.js')(config);
-var player = require('./player.js');
+var player = require('./player.js')();
 
 var fs = require('fs');
-var sio = require('socket.io');
+// var sio = require('socket.io');
 var bodyParser = require('body-parser');
-
 var server = require('express')();
+var os = require('os');
 
+var ifaces = os.networkInterfaces();
 
-//Player = player(config)
+// Player = player(config)
 var fileStructure = browser.getFileStructure();
-console.log(fileStructure);	
+// console.log(fileStructure);	
 
 server.use(bodyParser.urlencoded({
   extended: true
@@ -85,3 +86,30 @@ server.post('/action', function (req, res) {
 server.listen(config.portNumber);
 
 console.log('Listening at http://192.168.0.106:' + config.portNumber);
+
+// var os = require('os');
+// var ifaces = os.networkInterfaces();
+
+// console.log(ifaces);
+
+// Object.keys(ifaces).forEach(function (ifname) {
+//   var alias = 0;
+
+//   ifaces[ifname].forEach(function (iface) {
+//     if ('IPv4' !== iface.family || iface.internal !== false) {
+//       // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+//       return;
+//     }
+
+//     if (alias >= 1) {
+//       // this single interface has multiple ipv4 addresses
+//       console.log(ifname + ':' + alias, iface.address);
+//     } else {
+//       // this interface has only one ipv4 adress
+//       console.log(ifname, iface.address);
+//     }
+//   });
+// });
+
+// en0 192.168.1.101
+// eth0 10.0.0.101

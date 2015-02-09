@@ -4,14 +4,14 @@ module.exports = function(configuration) {
 	var resources;
 
 	var Browser = function (conf) {
-		console.log("browser.init() !");
+		console.log("browser.init() ");
 		//console.log("browser init!");															// TEST CONSOLE LOG
 		//console.log(config);																			// TEST CONSOLE LOG
 		config = conf;
 		resources = require("./resources.js");
 		var home = conf.homeFolderPath;
 		//console.log(home);																				// TEST CONSOLE LOG
-	}
+	};
 
 	var checkPath = function(folderPath) {
 		fs.exists(folderPath, function(exists) {
@@ -24,23 +24,16 @@ module.exports = function(configuration) {
 	};
 
 	// Method for reading the local library
-
 	Browser.prototype.getFileStructureFromFolder = function (homeFolder) {
-		
 		var result = {};
-		result["type"] = "folder";
 
-		//console.log(homeFolder);
-
-		if(homeFolder[homeFolder.length - 1] != '/') {
+		if (homeFolder[homeFolder.length - 1] != '/') {
 			homeFolder += '/';
 		}
-
-		//console.log(homeFolder);
 		
-		if(checkPath(homeFolder)) {
+		if (checkPath(homeFolder)) {
 
-			//console.log("homeFolderExists");
+			result["type"] = "folder";
 			result["path"] = homeFolder;
 
 			var childs = fs.readdirSync(homeFolder);
@@ -54,26 +47,21 @@ module.exports = function(configuration) {
 				//console.log(newPath);
 				var pathStats = fs.lstatSync(newPath);
 
-				if(pathStats.isDirectory()){
-					// console.log(newPath + " is an existing directory!");
-
+				if (pathStats.isDirectory()) {
 					var childDirectory = this.getFileStructureFromFolder(newPath);
 					result[child] =  childDirectory;
-
 				}
 
-				else if(pathStats.isFile()) {
-
-					// console.log(newPath + " is an existing file!");
+				else if (pathStats.isFile()) {
+					
 					var fileExtension = "." + child.split('.').pop();
 					var fileExtensions = config.fileExtensions;
-
-					// console.log(fileExtensions);
-					// console.log(fileExtension);
+					//console.log(fileExtension);
+					var allowedExtension = false;
 
 					for (var i = fileExtensions.length - 1; i >= 0; i--) {
-						if(fileExtension === fileExtensions[i]) {
-							// console.log(child + " is an " + fileExtension + " file");
+						if (fileExtension === fileExtensions[i]) {
+							allowedExtension = true;
 							var fileInfo = {};
 							fileInfo["type"] = "file";
 							fileInfo["extension"] = fileExtension;
@@ -82,31 +70,35 @@ module.exports = function(configuration) {
 							break;
 						}
 					};
+
+					if(!allowedExtension) {
+						console.log(extension);
+						childs = childs.splice(i, 1);
+						console.log(newPath + " isn't allowed type of file!");
+					}
 				}
 
 				else {
+					childs = childs.splice(i, 1);
 					console.log(newPath + " doesn't exists!");
 				}
-
-				//console.log(pathStats.isFile());
 			};
+
+			result["childArray"] = childs;
 		}
 
 		return result;		
-	}
+	};
 
 	Browser.prototype.getFileStructure = function() {
 		//console.log('browser.getFileStructure()');
 		var homeFolder = config.homeFolderPath;
 
 		return this.getFileStructureFromFolder(homeFolder);
-	}
+	};
 
 	return new Browser(configuration);
 };
-
-
-
 
 		// fs.exists(home, function(exists) {
 		// 	var childs = [];
