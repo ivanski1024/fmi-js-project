@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
 	<title>Party Station</title>
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
 <body>
 	<script type="text/javascript">
@@ -13,7 +12,6 @@
       console.log('Action:  ' + action);
     };
 	</script>	
-
 	<button id="prevButton" 
 						onClick="
 						var action = 'prev'; console.log(action); clickHandler(action);">&#9194;</button>
@@ -29,6 +27,12 @@
 	<button id="nextButton" 
 						onClick="
 						var action = 'next'; console.log(action); clickHandler(action);">&#9193;</button>
+	<ul id="songs" class="list">
+		<li class="song" ng-repeat="item in items">
 
+		</li>
+	</ul>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="/bower_components/angular/angular.js"></script>
 </body>	
 </html>

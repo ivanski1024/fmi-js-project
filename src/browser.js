@@ -24,7 +24,12 @@ module.exports = function(configuration) {
 	};
 
 	// Method for reading the local library
-	Browser.prototype.getFileStructureFromFolder = function (homeFolder) {
+
+Browser.prototype.getFileStructureFromFolder = function (homeFolder) {
+	return this.getFileStructureFromFolder(homeFolder);
+}
+
+	Browser.prototype.getFileStructureFromFolder = function (homeFolder, inDepth) {
 		var result = {};
 
 		if (homeFolder[homeFolder.length - 1] != '/') {

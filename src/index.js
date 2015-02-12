@@ -3,7 +3,7 @@
 console.log("program running");
 
 var config = {};
-config['homeFolderPath'] = "/Data/Music";
+config['homeFolderPath'] = "../music";
 config['fileExtensions'] = ['.mp3', '.wav'];
 config['portNumber'] = 3000;
 
@@ -20,6 +20,7 @@ var ifaces = os.networkInterfaces();
 
 // Player = player(config)
 var fileStructure = browser.getFileStructure();
+console.log(fileStructure);
 // console.log(fileStructure);	
 
 server.use(bodyParser.urlencoded({
@@ -38,17 +39,33 @@ server.get('/', function (req, res) {
     }
   };
 
+ 
 	res.sendFile('client.html', options, function(err) {
 		if (err) {
 			console.log(err);
 			res.status(err.status).end();
 		}
 		else {
+			
 			console.log('Client opened!');
+
 		}
 	});
 });
 
+server.get('/fileStructure', function (req, res) {
+	console.log('GET')
+
+	var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  }
+  res.json(fileStructure);
+});
 server.post('/action', function (req, res) {
 
 	// console.log(req);

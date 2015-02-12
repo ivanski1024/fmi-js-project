@@ -1,4 +1,4 @@
 var config = {}
 
-config.homeFolderPath: "/Data/Music/",
+config.homeFolderPath: "../music",
 config.fileExtensions: ['.mp3', '.wav']
