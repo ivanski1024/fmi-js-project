@@ -1,2 +1,7 @@
-/src/node_modules/
-*/.DS_store
+.DS_Store
+.gitignore
+src/npm-debug.log
+src/node_modules/
+src/bobo*
+src/test*
+test*
