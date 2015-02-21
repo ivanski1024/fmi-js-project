@@ -17,7 +17,6 @@ var server = require('express')();
 var os = require('os');
 
 var ifaces = os.networkInterfaces();
-
 // Player = player(config)
 var fileStructure = browser.getFileStructure();
 console.log(fileStructure);
@@ -66,6 +65,52 @@ server.get('/fileStructure', function (req, res) {
   }
   res.json(fileStructure);
 });
+
+server.get('/test', function (req, res) {
+	console.log('GET');
+	var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+
+	res.sendFile('test2.html', options, function (err) {
+		if (err) {
+			console.log(err);
+			res.status(err.status).end();
+		}
+		else {
+			console.log('test.html served!');
+		}
+	});
+});
+
+server.get('/*.js', function (req, res) {
+	console.log(req.url);
+
+	var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+
+	res.sendFile(req.url, options, function (err) {
+		if (err) {
+			console.log(err);
+			res.status(err.status).end();
+		}
+		else {
+			console.log(req.url + " file served!");
+		}
+	});
+});
+
 server.post('/action', function (req, res) {
 
 	// console.log(req);
@@ -100,9 +145,28 @@ server.post('/action', function (req, res) {
 	}
 });
 
-server.listen(config.portNumber);
+server.get('/bobo', function(req, res) {
+	var text= "bla bla bla bla bla bla bla bla Bobo blalalba lbalb\ al bla lba Bobo balablblablalblabla Bobo bla bla BO BO BO bla\ el elellalds Bobo"
+	var myName="Bobo"
+	var hits=[];
+	for (var i = 0; i <= text.length; i++) {
+		if (text[i] === myName[0]) {
+		  for (var s = i; s < (myName.length + i); s++) {
+		    if (text[s] === myName[s - i]) {
+		          hits.push(text[s]);
+		  	}
+		  }
 
-console.log('Listening at http://192.168.0.106:' + config.portNumber);
+		  if(hits.length === myName.length) {
+		  	console.log(hits);
+		  }
+		  hits = [];
+		}
+	}
+});
+
+server.listen(config["portNumber"]);
+//console.log('Listening at http://192.168.0.106:' + config.portNumber);
 
 // var os = require('os');
 // var ifaces = os.networkInterfaces();

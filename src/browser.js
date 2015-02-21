@@ -26,10 +26,11 @@ module.exports = function(configuration) {
 	// Method for reading the local library
 
 Browser.prototype.getFileStructureFromFolder = function (homeFolder) {
-	return this.getFileStructureFromFolder(homeFolder);
+
+	return this.getFileStructureFromFolderInDepth(homeFolder, true);
 }
 
-	Browser.prototype.getFileStructureFromFolder = function (homeFolder, inDepth) {
+	Browser.prototype.getFileStructureFromFolderInDepth = function (homeFolder, inDepth) {
 		var result = {};
 
 		if (homeFolder[homeFolder.length - 1] != '/') {
@@ -52,8 +53,8 @@ Browser.prototype.getFileStructureFromFolder = function (homeFolder) {
 				//console.log(newPath);
 				var pathStats = fs.lstatSync(newPath);
 
-				if (pathStats.isDirectory()) {
-					var childDirectory = this.getFileStructureFromFolder(newPath);
+				if (pathStats.isDirectory() && inDepth) {
+					var childDirectory = this.getFileStructureFromFolder(newPath, inDepth);
 					result[child] =  childDirectory;
 				}
 

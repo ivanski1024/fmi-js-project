@@ -1,38 +1,65 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="library">
 <head>
 	<title>Party Station</title>
 </head>
 <body>
 	<script type="text/javascript">
-		// var url = 'http://192.168.0.106:3000/';
 		var url = 'http://127.0.0.1:3000/';
 		var clickHandler = function(action) {
+			alert('pesho');
       $.post(url + 'action', {action: action});
       console.log('Action:  ' + action);
     };
 	</script>	
-	<button id="prevButton" 
-						onClick="
-						var action = 'prev'; console.log(action); clickHandler(action);">&#9194;</button>
-	<button id="playButton" 
-						onClick="
-						var action = 'play'; console.log(action); clickHandler(action);">&#9658;</button>
-	<button id="pauseButton" 
-						onClick="
-						var action = 'pause'; console.log(action); clickHandler(action);">&#9616;&#9616;</button>
-	<button id="stopButton" 
-						onClick="
-						var action = 'stop'; console.log(action); clickHandler(action);">&#9724;</button>
-	<button id="nextButton" 
-						onClick="
-						var action = 'next'; console.log(action); clickHandler(action);">&#9193;</button>
-	<ul id="songs" class="list">
-		<li class="song" ng-repeat="item in items">
 
-		</li>
-	</ul>
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="/bower_components/angular/angular.js"></script>
+	<button id="prevButton" 
+					onClick="var action = 'prev'; console.log(action); clickHandler(action);">&#9194;
+	</button>
+	<button id="playButton" 
+					onClick="var action = 'play'; console.log(action); clickHandler(action);">&#9658;
+	</button>
+	<button id="pauseButton" 
+					onClick="var action = 'pause'; console.log(action); clickHandler(action);">&#9616;&#9616;
+	</button>
+	<button id="stopButton" 
+					onClick="var action = 'stop'; console.log(action); clickHandler(action);">&#9724;
+	</button>
+	<button id="nextButton" 
+					onClick="var action = 'next'; console.log(action); clickHandler(action);">&#9193;
+	</button>
+
+	<div  ng-controller="libraryCntrl" id="songsContainer">
+		<ul id="songs" class="list">
+			<li ng-repeat="item in result" class="song">
+				<button ng-click="songClickHandler(item)">{{item}}</button>
+			</li>
+		</ul>
+	</div>
+	<!-- 
+				<script type="text/javascript">
+				 	// var item = {{item}};
+					// console.log(item);
+				</script> 
+			-->
+	<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js">
+	</script>
+	<script type="text/javascript" src="/node_modules/angular/angular.min.js">
+	</script>
+	<script type="text/javascript" src="songs.js">
+	</script>
 </body>	
 </html>
+
+
+<!-- 
+	<div ng-controller="fessCntrl">
+    <ul>
+        <li ng-repeat="user in users">{{user.firstname}}</li>
+  	</ul>
+	</div>
+	<div> {{users}} </div>
+	
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+	<script type="text/javascript" src="myModule.js"></script> -->
